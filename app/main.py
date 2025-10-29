@@ -1,20 +1,17 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
-from database import SessionLocal, Base, engine
-from sqlalchemy import text 
+from fastapi import FastAPI
+from database import Base, engine
+from routers import chats, messages
 
-app = FastAPI()
+# Create all tables (only runs once at startup)
+Base.metadata.create_all(bind=engine)
 
-# Dependency to get DB session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# Initialize app
+app = FastAPI(title="Chat Backend API")
+
+# Register routers
+app.include_router(chats.router)
+app.include_router(messages.router)
 
 
-@app.get("/")
-def read_root(db: Session = Depends(get_db)):
-    result = db.execute(text("SELECT version();"))
-    return {"PostgreSQL version": list(result)[0][0]}
+
+
