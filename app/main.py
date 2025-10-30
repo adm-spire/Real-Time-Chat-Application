@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from database import Base, engine
-from routers import chats, messages
+from routers import users , chats, messages
 
 # Create all tables (only runs once at startup)
 Base.metadata.create_all(bind=engine)
@@ -12,6 +12,6 @@ app = FastAPI(title="Chat Backend API")
 app.include_router(chats.router)
 app.include_router(messages.router)
 
-
+app.include_router(users.router)
 
 
