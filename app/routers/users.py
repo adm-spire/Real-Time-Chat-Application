@@ -50,7 +50,7 @@ def create_user(user: Schemas.UserCreate, db: Session = Depends(get_db)):
 # ---------------------------
 @router.get("/", response_model=List[Schemas.UserResponse])
 def get_users(db: Session = Depends(get_db)):
-    users = crud.get_users(db)
+    users = crud.get_all_users(db)
     return users
 
 

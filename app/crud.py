@@ -46,6 +46,17 @@ def update_user(db: Session, user_id: int, user_update: Schemas.UserUpdate) -> O
 def get_all_users(db: Session) -> List[models.User]:
     return db.query(models.User).all()
 
+def delete_user(db: Session, user_id: int):
+    # Fetch the user first
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        return False  # User not found
+
+    # Delete user from database
+    db.delete(user)
+    db.commit()
+    return True
+
 
 # ---------------------------
 # CHAT CRUD

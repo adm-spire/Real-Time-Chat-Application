@@ -93,3 +93,35 @@ class MessageResponse(MessageBase):
 
     class Config:
         orm_mode = True
+
+
+
+
+
+# ---------------------------
+# Security Schemas
+# ---------------------------
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
